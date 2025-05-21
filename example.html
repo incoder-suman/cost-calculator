@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Brick Cost Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f4f4f4;
+    }
+    h1 {
+      text-align: center;
+    }
+    .container {
+      max-width: 600px;
+      background: white;
+      padding: 20px;
+      margin: auto;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+    th, td {
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+    button {
+      padding: 10px 20px;
+      background: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .result {
+      margin-top: 15px;
+      background: #e6ffe6;
+      padding: 10px;
+      border-left: 4px solid green;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Brick Cost Calculator</h1>
+    <table>
+      <tr>
+        <th>Material</th>
+        <th>Rate (₹/MT)</th>
+        <th>Percentage (%)</th>
+      </tr>
+      <tr>
+        <td>Fly Ash</td>
+        <td><input type="number" id="rate1" placeholder="e.g. 500"></td>
+        <td><input type="number" id="perc1" placeholder="e.g. 60"></td>
+      </tr>
+      <tr>
+        <td>Sand</td>
+        <td><input type="number" id="rate2"></td>
+        <td><input type="number" id="perc2"></td>
+      </tr>
+      <tr>
+        <td>Cement</td>
+        <td><input type="number" id="rate3"></td>
+        <td><input type="number" id="perc3"></td>
+      </tr>
+    </table>
+
+    <label>Weight per piece (kg):</label>
+    <input type="number" id="pieceWeight" value="3">
+
+    <button onclick="calculate()">Calculate</button>
+
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    function calculate() {
+      const rate1 = parseFloat(document.getElementById("rate1").value) || 0;
+      const rate2 = parseFloat(document.getElementById("rate2").value) || 0;
+      const rate3 = parseFloat(document.getElementById("rate3").value) || 0;
+      const perc1 = parseFloat(document.getElementById("perc1").value) || 0;
+      const perc2 = parseFloat(document.getElementById("perc2").value) || 0;
+      const perc3 = parseFloat(document.getElementById("perc3").value) || 0;
+      const weightPerPiece = parseFloat(document.getElementById("pieceWeight").value) || 1;
+
+      const totalPerc = perc1 + perc2 + perc3;
+      if (totalPerc !== 100) {
+        document.getElementById("result").innerHTML = "Error: Total percentage must be 100%";
+        return;
+      }
+
+      // Calculate total cost per ton
+      const costPerTon = (rate1 * perc1/100) + (rate2 * perc2/100) + (rate3 * perc3/100);
+
+      // Cost per kg
+      const costPerKg = costPerTon / 1000;
+
+      // Cost per piece
+      const costPerPiece = (costPerKg * weightPerPiece).toFixed(2);
+
+      document.getElementById("result").innerHTML = `
+        <strong>Total Mix Cost:</strong> ₹${costPerTon.toFixed(2)} per ton<br>
+        <strong>Cost per piece:</strong> ₹${costPerPiece}
+      `;
+    }
+  </script>
+</body>
+</html>
