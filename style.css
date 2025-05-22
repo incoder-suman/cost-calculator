@@ -72,7 +72,39 @@ section{
     width: 100vw;
 }
 /* Hero Section End  */
-
+.Cost h1{
+    font-size: xx-large;
+    font-weight: 900;
+    display: flex;
+    justify-content: center;
+}
+.allcost{
+    display: flex;
+    flex-direction: column;
+}
+.allcost h2{
+    font-size: xx-large;
+    font-weight: 900;
+}
+.item-parent{
+    display: flex;
+}
+.items{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    border-style: solid;
+    border-width: 2px;
+}
+.items:hover{
+    background-color: #05B0E6;
+    cursor: pointer;
+}
+.items img{
+    width: 130px;
+    margin: 0 auto;
+}
 /* Marquee tag  */
 .marquee{
     width: 100%;
@@ -82,6 +114,7 @@ section{
     color: red;
     font-size: x-large;
     font-weight: 700;
+    margin-top: 100px;
 }
 .marquee p {
     display: inline-block;
@@ -90,13 +123,13 @@ section{
     -webkit-animation: marquee 50s linear infinite;
 }
 @keyframes marquee {
-    0% { transform:translateX(10%); -webkit-transform:; -moz-transform:; -ms-transform:; -o-transform:; }
+    0% { transform:translateX(10%); -webkit-transform:translateX(10%); -moz-transform:translateX(10%); -ms-transform:translateX(10%); -o-transform:translateX(10%); }
     100% { transform:translateX(-100%) ; -webkit-transform:translateX(-100%) ; -moz-transform:translateX(-100%) ; -ms-transform:translateX(-100%) ; -o-transform:translateX(-100%) ; }
 }
 /* Marquee tag */
 
 .footer{
-    margin-top: 500px;
+    margin-top: 100px;
     width: 100%;
     height: 100px;
     background-color: gray;

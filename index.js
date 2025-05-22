@@ -6,3 +6,14 @@ window.addEventListener('scroll', function (){
         header.classList.remove('scrolled');
     }
 })
+
+function selectItem(imgSrc, length, width, height) {
+    localStorage.setItem("tileImage", imgSrc);
+    localStorage.setItem("tileLength", length);
+    localStorage.setItem("tileWidth", width);
+    localStorage.setItem("tileHeight", height);
+
+
+    window.location.href = "index-sec.html"
+
+}
