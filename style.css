@@ -128,6 +128,42 @@ section{
 }
 /* Marquee tag */
 
+/* Auto selected Hero section */
+.auto-selected{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+.selected-box{
+    width: 500px;
+    border-style: solid;
+    border-radius: 1px;
+    -webkit-border-radius: 1px;
+    -moz-border-radius: 1px;
+    -ms-border-radius: 1px;
+    -o-border-radius: 1px;
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+}
+
+
+.selected-box2 img{
+    width: 200px;
+    height: auto;
+    border-radius: 1px;
+    -webkit-border-radius: 1px;
+    -moz-border-radius: 1px;
+    -ms-border-radius: 1px;
+    -o-border-radius: 1px;
+}
+.btn{
+    width: 100px;
+    margin: 0 auto;
+}
+/* Auto selected Hero section End  */
+
 .footer{
     margin-top: 100px;
     width: 100%;
