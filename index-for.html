@@ -11,10 +11,12 @@
     <nav>
       <div class="header">
         <div class="logo">
-          <img
+          <a href="index.html">
+            <img
             src="Assets/LOGO FINAL 2025 with GREY label HD.png"
             alt="JKTILES"
           />
+          </a>
         </div>
         <div class="logo-name">
           <p>JK Tiles Machinery Concrete Product Cost Calculation Report</p>
@@ -33,45 +35,74 @@
           <p id="volume"></p>
         </div>
         <div>
-            <table border="1" cellspacing="0" cellpadding="8" style="border-collapse: collapse; width: 100%;">
-  <table id="materialTable">
+             <table id="materialTable">
         <thead>
             <tr>
                 <th>S.no.</th>
                 <th>Raw Material</th>
-                <th>Batching Quantity (KG)</th>
-                <th>Rate (₹)</th>
-                <th>Nett Amount (₹)</th>
+                <th>Batching Quantity (in KGS) approx</th>
+                <th>Rate (customer will add)</th>
+                <th>Nett Amount</th>
             </tr>
         </thead>
         <tbody>
             <tr>
                 <td>1</td>
-                <td>Cement (OPC 43/53 Grade)</td>
-                <td>25</td>
-                <td><input type="number" class="rate-input" oninput="calculateNettAmount(this)"></td>
-                <td class="nett-amount">0</td>
+                <td>Cement (opc 43/53 Grade) MIN 8 TO 10 % OF TOTAL BATCH</td>
+                <td><input type="number" class="quantity" value="0" min="0"></td>
+                <td><input type="number" class="rate" value="0" min="0"></td>
+                <td class="nett-amount">175</td>
             </tr>
             <tr>
                 <td>2</td>
-                <td>M Sand Stone Dust</td>
-                <td>200</td>
-                <td><input type="number" class="rate-input" oninput="calculateNettAmount(this)"></td>
-                <td class="nett-amount">0</td>
+                <td>M Sand Stone Dust (fine Aggregate)</td>
+                <td><input type="number" class="quantity" value="0" min="0"></td>
+                <td><input type="number" class="rate" value="0" min="0"></td>
+                <td class="nett-amount">200</td>
             </tr>
             <tr>
                 <td>3</td>
-                <td>Stone Chips (3-4mm)</td>
-                <td>100</td>
-                <td><input type="number" class="rate-input" oninput="calculateNettAmount(this)"></td>
+                <td>Stone chips (max 3 to 4 mm micro baby chips)</td>
+                <td><input type="number" class="quantity" value="0" min="0"></td>
+                <td><input type="number" class="rate" value="0" min="0"></td>
+                <td class="nett-amount">100</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td><input type="text" class="material-name" placeholder="Add other material"></td>
+                <td><input type="number" class="quantity" value="0" min="0"></td>
+                <td><input type="number" class="rate" value="0" min="0"></td>
                 <td class="nett-amount">0</td>
             </tr>
             <tr class="total-row">
-                <td colspan="4">Total RMC (Raw Material Cost) =</td>
-                <td id="total-amount">0</td>
+                <td>5</td>
+                <td>Total RMC (raw material cost) =</td>
+                <td colspan="2"></td>
+                <td id="total-rmc">0</td>
             </tr>
         </tbody>
     </table>
+
+    <div>
+        <label>Labour Cost/pcs: </label>
+        <input type="number" id="labour-cost" value="0.00" min="0" step="0.01"><br><br>
+        
+        <label>Chemical Cost/pcs: </label>
+        <input type="number" id="chemical-cost" value="0.00" min="0" step="0.01"><br><br>
+        
+        <label>Electricity Cost/pcs: </label>
+        <input type="number" id="electricity-cost" value="0.00" min="0" step="0.01"><br><br>
+        
+        <label>Other Expenses: </label>
+        <input type="number" id="other-expenses" value="0" min="0" step="0.01"><br><br>
+    </div>
+
+    <div class="total-row">
+        <h3>Final Costing Approx: <span id="final-cost">0</span></h3>
+    </div>
+
+    <button id="add-row">Add Another Material</button>
+
         </div>
     </section>
     <!-- Auto selected Hero section End -->
@@ -90,8 +121,8 @@
       <p>Copyrights © 2025 All Rights Reserved by JK Tiles Machinery.</p>
     </div>
     <!-- Footer End  -->
-     <script>
-  // Fetch values from localStorage
+   <script>
+    // Fetch values from localStorage
   const length = parseFloat(localStorage.getItem("tileLength"));
   const width = parseFloat(localStorage.getItem("tileWidth"));
   const height = parseFloat(localStorage.getItem("tileHeight"));
@@ -105,8 +136,81 @@
 
   document.getElementById("volume").textContent =
     `Volume: ${volume.toFixed(6)} m³`;
-</script>
 
+
+   </script>
+<script>
+        // Function to calculate nett amount for a row
+        function calculateRow(row) {
+            const quantity = parseFloat(row.querySelector('.quantity').value) || 0;
+            const rate = parseFloat(row.querySelector('.rate').value) || 0;
+            const nettAmount = quantity * rate;
+            row.querySelector('.nett-amount').textContent = nettAmount.toFixed(2);
+            return nettAmount;
+        }
+
+        // Function to calculate total RMC
+        function calculateTotalRMC() {
+            const rows = document.querySelectorAll('#materialTable tbody tr:not(.total-row)');
+            let total = 0;
+            
+            rows.forEach(row => {
+                total += calculateRow(row);
+            });
+            
+            document.getElementById('total-rmc').textContent = total.toFixed(2);
+            return total;
+        }
+
+        // Function to calculate final cost
+        function calculateFinalCost() {
+            const totalRmc = parseFloat(calculateTotalRMC());
+            const labourCost = parseFloat(document.getElementById('labour-cost').value) || 0;
+            const chemicalCost = parseFloat(document.getElementById('chemical-cost').value) || 0;
+            const electricityCost = parseFloat(document.getElementById('electricity-cost').value) || 0;
+            const otherExpenses = parseFloat(document.getElementById('other-expenses').value) || 0;
+            
+            const finalCost = totalRmc + labourCost + chemicalCost + electricityCost + otherExpenses;
+            document.getElementById('final-cost').textContent = finalCost.toFixed(2);
+        }
+
+        // Add event listeners to all quantity and rate inputs
+        document.querySelectorAll('.quantity, .rate').forEach(input => {
+            input.addEventListener('input', calculateFinalCost);
+        });
+
+        // Add event listeners to cost inputs
+        document.getElementById('labour-cost').addEventListener('input', calculateFinalCost);
+        document.getElementById('chemical-cost').addEventListener('input', calculateFinalCost);
+        document.getElementById('electricity-cost').addEventListener('input', calculateFinalCost);
+        document.getElementById('other-expenses').addEventListener('input', calculateFinalCost);
+
+        // Add row button functionality
+        document.getElementById('add-row').addEventListener('click', function() {
+            const tbody = document.querySelector('#materialTable tbody');
+            const rowCount = document.querySelectorAll('#materialTable tbody tr:not(.total-row)').length;
+            const newRow = document.createElement('tr');
+            
+            newRow.innerHTML = `
+                <td>${rowCount + 1}</td>
+                <td><input type="text" class="material-name" placeholder="Add other material"></td>
+                <td><input type="number" class="quantity" value="0" min="0"></td>
+                <td><input type="number" class="rate" value="0" min="0"></td>
+                <td class="nett-amount">0</td>
+            `;
+            
+            // Insert before the total row
+            tbody.insertBefore(newRow, tbody.querySelector('.total-row'));
+            
+            // Add event listeners to new inputs
+            newRow.querySelector('.quantity').addEventListener('input', calculateFinalCost);
+            newRow.querySelector('.rate').addEventListener('input', calculateFinalCost);
+        });
+
+        // Initial calculation
+        calculateFinalCost();
+    </script>
     <script src="index.js"></script>
+  
   </body>
 </html>
