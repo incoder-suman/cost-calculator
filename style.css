@@ -162,6 +162,10 @@ section{
     width: 100px;
     margin: 0 auto;
 }
+.forbox{
+    display: flex;
+    justify-content: center;
+}
 /* Auto selected Hero section End  */
 
 .footer{

@@ -25,32 +25,88 @@
       </div>
     </nav>
     <!-- Header End -->
-      <!-- Hero  -->
-    <section class="Cost">
-        <h1>Final Calculation OF Products and Materials.</h1>
-        <div class="selected-box">
-        <div class="selected-box1">
-          <p id="Dimensions"></p>
+    <!-- Auto selected Hero section -->
+    <section class="auto-selected">
+        <h1>Final Calculation of Costing and Raw Material. </h1>
+     <div class="forbox">
+          <p id="dimensions"></p>
           <p id="volume"></p>
         </div>
-        
+        <div>
+            <table border="1" cellspacing="0" cellpadding="8" style="border-collapse: collapse; width: 100%;">
+  <table id="materialTable">
+        <thead>
+            <tr>
+                <th>S.no.</th>
+                <th>Raw Material</th>
+                <th>Batching Quantity (KG)</th>
+                <th>Rate (₹)</th>
+                <th>Nett Amount (₹)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Cement (OPC 43/53 Grade)</td>
+                <td>25</td>
+                <td><input type="number" class="rate-input" oninput="calculateNettAmount(this)"></td>
+                <td class="nett-amount">0</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>M Sand Stone Dust</td>
+                <td>200</td>
+                <td><input type="number" class="rate-input" oninput="calculateNettAmount(this)"></td>
+                <td class="nett-amount">0</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Stone Chips (3-4mm)</td>
+                <td>100</td>
+                <td><input type="number" class="rate-input" oninput="calculateNettAmount(this)"></td>
+                <td class="nett-amount">0</td>
+            </tr>
+            <tr class="total-row">
+                <td colspan="4">Total RMC (Raw Material Cost) =</td>
+                <td id="total-amount">0</td>
+            </tr>
+        </tbody>
+    </table>
+        </div>
     </section>
+    <!-- Auto selected Hero section End -->
     <div class="marquee">
       <p>
         NOTE :- The final concrete result will always be considered as an
         average because there are minor dimensional variations that occur during
-        the process of manufacturing, such as changes in length, width, and height (L × W × H).
-        Due to these slight inconsistencies, the exact volume may vary slightly
-        in each case. Therefore, we always rely on an average value to ensure
-        more accurate and practical outcomes.
+        the process of manufacturing, such as changes in length, width, and
+        height (L × W × H). Due to these slight inconsistencies, the exact
+        volume may vary slightly in each case. Therefore, we always rely on an
+        average value to ensure more accurate and practical outcomes.
       </p>
     </div>
-    <!-- Hero End -->
     <!-- Footer  -->
     <div class="footer">
       <p>Copyrights © 2025 All Rights Reserved by JK Tiles Machinery.</p>
     </div>
     <!-- Footer End  -->
+     <script>
+  // Fetch values from localStorage
+  const length = parseFloat(localStorage.getItem("tileLength"));
+  const width = parseFloat(localStorage.getItem("tileWidth"));
+  const height = parseFloat(localStorage.getItem("tileHeight"));
+
+  // Volume in m³ from mm
+  const volume = (length * width * height) / 1000000000;
+
+  // Display in HTML
+  document.getElementById("dimensions").textContent =
+    `Length: ${length} mm, Width: ${width} mm, Height: ${height} mm`;
+
+  document.getElementById("volume").textContent =
+    `Volume: ${volume.toFixed(6)} m³`;
+</script>
+
     <script src="index.js"></script>
   </body>
 </html>

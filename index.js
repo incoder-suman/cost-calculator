@@ -33,3 +33,26 @@ document.getElementById("volume").textContent =
         header.classList.remove('scrolled');
     }
 })
+
+function calculateNettAmount(input) {
+            // Get the current row
+            const row = input.closest('tr');
+            const qty = parseFloat(row.querySelector('td:nth-child(3)').textContent);
+            const rate = parseFloat(input.value) || 0;
+            
+            // Calculate Nett Amount
+            const nettAmount = qty * rate;
+            row.querySelector('.nett-amount').textContent = nettAmount.toFixed(2);
+            
+            // Update Total
+            updateTotal();
+        }
+
+        function updateTotal() {
+            const amounts = document.querySelectorAll('.nett-amount');
+            let total = 0;
+            amounts.forEach(amt => {
+                total += parseFloat(amt.textContent) || 0;
+            });
+            document.getElementById('total-amount').textContent = total.toFixed(2);
+        }
