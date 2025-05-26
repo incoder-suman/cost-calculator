@@ -15,9 +15,14 @@ const length = localStorage.getItem("tileLength");
 const width = localStorage.getItem("tileWidth");
 const height = localStorage.getItem("tileHeight");
 
+const volume = (length * width * height) / 1000000000;
+
 document.getElementById("tileImage").src = img;
 document.getElementById("Dimensions").textContent =
-    `Length: ${length}, Width: ${width}, Height: ${height}`;
+    `Length: ${length}mm, Width: ${width}mm, Height: ${height}mm`;
+
+document.getElementById("volume").textContent = 
+        `Volume: ${volume.toFixed(6)} m³`;
 
 
     window.addEventListener('scroll', function (){
