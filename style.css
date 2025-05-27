@@ -143,7 +143,7 @@ section{
     margin-top: 30px;
 }
 .selected-box{
-    width: 800px;
+    width: 500px;
     border-style: solid;
     border-radius: 1px;
     -webkit-border-radius: 1px;
@@ -151,12 +151,18 @@ section{
     -ms-border-radius: 1px;
     -o-border-radius: 1px;
     display: flex;
+    justify-content: space-between;
     align-items: center;
     margin: 0 auto;
     margin-top: 30px;
 }
 .selected-box1{
     display: flex;
+}
+.selected-box1 p{
+    font-size: x-large;
+    border: solid 3px;
+
 }
 
 .selected-box2 img{
